@@ -1,6 +1,7 @@
 const APIError = require('./APIError');
 
 function bodyParserHandler(err, req, res, next) {
+    console.log(err);
     if ((err instanceof SyntaxError) || (err instanceof TypeError)) {
         return next(new APIError(400, "Malformed JSON."));
     }
@@ -29,7 +30,10 @@ const globalErrorHandler = async (err, req, res, next) => {
     if (!(error instanceof APIError)) {
         error = new APIError(500, err.message);
     }
-    res.status(error.status).json(error)
+    res.status(error.status).json({
+        success: false,
+        message: error.message
+    })
 }
 
 module.exports = {

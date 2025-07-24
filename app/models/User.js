@@ -14,18 +14,18 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     role: {
-        type: Array,
-        default: ['user'],
+        type: String,
+        default: 'user',
         required: true
     },
-    verified:{
-        type:Boolean,
-        default:false
+    verified: {
+        type: Boolean,
+        default: false
     },
-    MFA_Enabled:{
-        type:Boolean,
-        default:false
+    MFA_Enabled: {
+        type: Boolean,
+        default: false
     },
-},{timestamps:true})
+}, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema);

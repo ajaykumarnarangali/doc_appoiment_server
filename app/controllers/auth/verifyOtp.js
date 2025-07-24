@@ -24,7 +24,6 @@ exports.verifyOtp = async (req, res, next) => {
             success: true,
             access_token
         })
-
     } catch (error) {
         next(error)
     }

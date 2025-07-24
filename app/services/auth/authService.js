@@ -21,7 +21,7 @@ const registerUser = async ({ username, email, password, role }) => {
         username,
         email,
         password: hashedPassword,
-        role: [role]
+        role
     });
 
     const newOtp = new Otp({
