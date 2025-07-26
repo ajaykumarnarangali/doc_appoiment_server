@@ -22,17 +22,13 @@ function authorizeUser(req, res, next) {
 }
 
 function authorizeRole(...allowedRoles) {
-
     return (req, res, next) => {
-
         const userRole = req.user.role;
         if (!userRole || !allowedRoles.includes(userRole)) {
             return next(new APIError(403, 'Access denied: insufficient permissions'));
         }
-
         next();
     }
-
 }
 
 module.exports = {

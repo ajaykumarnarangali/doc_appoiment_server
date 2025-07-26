@@ -1,0 +1,7 @@
+{
+  "watch": ["swagger", "app"],
+  "ext": "js,json,yml,yaml",
+  "ignore": ["node_modules"],
+  "exec": "node app/server.js",
+  "verbose": true
+}

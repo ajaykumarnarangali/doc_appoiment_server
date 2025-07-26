@@ -28,7 +28,7 @@ exports.Login = async (req, res, next) => {
 
             return res.status(500).json({
                 success: false,
-                message: 'User logged in successfully. failure in OTP sent to email.',
+                message: 'Login verified, but failed to send OTP email. Try again or contact support.',
                 requires_otp: false
             })
         }

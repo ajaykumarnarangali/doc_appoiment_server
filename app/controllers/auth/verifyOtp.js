@@ -12,8 +12,8 @@ exports.verifyOtp = async (req, res, next) => {
 
     try {
 
-        const { access_token, refresh_token } = await authService.verifyOtp(email, otp)
-
+        const { access_token, refresh_token } = await authService.verifyOtp(email, otp);
+        
         res.cookie('refresh_token', refresh_token, {
             httpOnly: true,
             secure: true,

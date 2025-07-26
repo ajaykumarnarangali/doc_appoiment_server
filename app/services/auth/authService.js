@@ -55,7 +55,7 @@ const verifyOtp = async (email, otp) => {
     }
 
     const access_token = generateToken(
-        { id: user._id, role: user.role[0] },
+        { id: user._id, role: user.role },
         process.env.ACCESS_SECRET,
         '15m'
     );
@@ -103,7 +103,7 @@ const loginUser = async ({ email, password }) => {
     }
 
     const access_token = generateToken(
-        { id: user._id, role: user.role[0] },
+        { id: user._id, role: user.role },
         process.env.ACCESS_SECRET,
         '15m'
     );
@@ -148,7 +148,7 @@ const refreshToken = async (incoming_token) => {
     }
 
     const new_access_token = generateToken(
-        { id: decoded.id },
+        { id: decoded.id, role: decoded.role },
         process.env.ACCESS_SECRET,
         '15m'
     );

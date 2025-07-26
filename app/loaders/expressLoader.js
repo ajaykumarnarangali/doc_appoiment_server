@@ -21,7 +21,8 @@ const {
 async function expressLoader(app) {
     app.use(morgan('dev'));
     app.use(cors({
-        origin: process.env.FRONT_END_URL
+        origin: process.env.FRONT_END_URL,
+        credentials: true
     }));
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));

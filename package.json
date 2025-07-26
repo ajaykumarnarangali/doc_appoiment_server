@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./app/server.js"
+    "dev": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,9 @@
     "mongoose": "^8.16.0",
     "morgan": "^1.10.0",
     "nodemailer": "^7.0.3",
-    "otp-generator": "^4.0.1"
+    "otp-generator": "^4.0.1",
+    "swagger-ui-express": "^5.0.1",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
