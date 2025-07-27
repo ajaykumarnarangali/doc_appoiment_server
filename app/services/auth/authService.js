@@ -81,13 +81,13 @@ const loginUser = async ({ email, password }) => {
 
     const user = await User.findOne({ email });
     if (!user) {
-        throw new APIError(403, 'invalid email')
+        throw new APIError(401, 'invalid email')
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
 
     if (!isPasswordMatch) {
-        throw new APIError(403, 'incorrect password');
+        throw new APIError(401, 'incorrect password');
     }
 
     if (user.MFA_Enabled) {

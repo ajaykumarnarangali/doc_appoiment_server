@@ -1,0 +1,164 @@
+schema:
+  post:
+    tags:
+      - Auth
+    summary: Login
+    description: User login to the VS app
+    requestBody:
+      description: 'Request body for login API'
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/Login"
+    responses:
+      '201':
+        description: Success Response
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - "$ref": "#/components/schemas/successResponse"
+                - "$ref": '#/components/schemas/LoginWithOtp'
+            examples:
+              NormalLogin:
+                summary: Login without Mfa
+                description: login user that not enabled mfa option
+                value:
+                  success: true
+                  message: "user logged in succsessfully"
+                  access_token: "eyJhbGciOiJIUzI1NiIsInR..."
+              OtpLogin:
+                summary: Login with Mfa
+                description: login user that enabled mfa option
+                value:
+                  success: true
+                  message: "User logged in successfully. OTP sent to email."
+                  requires_otp: true
+      '401':
+        description: Invalid Credential Response
+        content:
+          application/json:
+            schema:
+                "$ref": "#/components/schemas/InvalidCredentialResponse"
+            examples:
+              InvalidEmail:
+                summary: Invalid Email Address
+                description: The provided email address does not match any user in the system.
+                value:
+                  success: false
+                  message: "Invalid email"
+              InvalidPassword:
+                summary: Incorrect Password
+                description: The provided password does not match the one associated with the user account.
+                value:
+                  success: false
+                  message: "Invalid password"
+      '400':
+        description: Validation Error Response 
+        content:
+          application/json:
+            schema:
+                "$ref": "#/components/schemas/ValidationErrorResponse"
+      '500':
+        description: Internal Server Error Response
+        content:
+         application/json:
+           schema:
+             "$ref": "#/components/schemas/InternalServerErrorResponse"
+           examples:
+             EmailSendFailure:
+               summary: OTP email failed
+               description: Login verified, but failed to send OTP email.
+               value:
+                 success: false
+                 message: "Login verified, but failed to send OTP email. Try again or contact support."
+             GenericServerError:
+               summary: Unexpected server error
+               description: Generic internal server error during login.
+               value:
+                 success: false
+                 message: "Something went wrong. Please try again later."
+
+components:
+  schemas:
+    Login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          description: Email address of the user.
+          example: johndoe@example.com
+        password:
+          type: string
+          description: Password of the user
+          example: "**************"
+          minLength: 6
+    successResponse:
+      type: object
+      required:
+        - success
+        - message
+        - access_token
+      properties:
+        success:
+          type: boolean
+          example: true
+        access_token:
+          type: string
+          example: "eyjnkdjnsd****.eyjsnkdjskd***.eyj*****"
+        message:
+          type: string
+          example: "user logged in succsessfully"
+    LoginWithOtp:
+      type: object
+      required:
+        - success
+        - message
+        - requires_otp
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "User logged in successfully. OTP sent to email."
+        requires_otp: 
+          type: boolean
+          example: true
+    ValidationErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "correspond error message"
+    InvalidCredentialResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    InternalServerErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+
+

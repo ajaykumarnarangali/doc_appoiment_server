@@ -10,7 +10,7 @@ const swaggerUi = require("swagger-ui-express");
 const YAML = require("yamljs");
 
 const swaggerDocument = YAML.load(
-    path.join(__dirname, "..", "swagger", "swagger.yaml")
+    path.join(__dirname, "..", "swagger", "openapi.yaml")
 );
 
 const {

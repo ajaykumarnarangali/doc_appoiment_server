@@ -29,8 +29,7 @@ exports.Login = async (req, res, next) => {
             return res.status(500).json({
                 success: false,
                 message: 'Login verified, but failed to send OTP email. Try again or contact support.',
-                requires_otp: false
-            })
+            });
         }
 
         return res.cookie('refresh_token', result?.refresh_token, {
@@ -42,7 +41,7 @@ exports.Login = async (req, res, next) => {
             message: "user logged in succsessfully",
             success: true,
             access_token: result?.access_token
-        })
+        });
 
     } catch (error) {
         next(error);
