@@ -8,13 +8,15 @@ servers:
 tags:
   - name: Auth
     description: Api related to authentication
+  - name: User
+    description: Api related to user operations
 paths:
   /auth/login:
     post:
       tags:
         - Auth
       summary: Login
-      description: User login to the VS app
+      description: User login to the Doctor appoinment app
       requestBody:
         description: Request body for login API
         content:
@@ -156,6 +158,211 @@ paths:
                   value:
                     success: false
                     message: Something went wrong. Please try again later.
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: User registration to the doctor appoinment app
+      requestBody:
+        description: Request body for Register API
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - email
+                - password
+                - role
+              properties:
+                username:
+                  type: string
+                  description: name of the user.
+                  example: johndoe
+                role:
+                  type: string
+                  description: user role.
+                  example: user
+                email:
+                  type: string
+                  description: Email address of the user.
+                  example: johndoe@example.com
+                password:
+                  type: string
+                  description: Password of the user
+                  example: '**************'
+                  minLength: 6
+      responses:
+        '201':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User registered successfully. OTP sent to email.
+        '400':
+          description: Validation Error Response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: correspond error message
+        '409':
+          description: Conflict - User already exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: User already exists with this email
+        '500':
+          description: Internal Server Error Response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                EmailSendFailure:
+                  summary: OTP email failed
+                  description: 'registration completed, but failed to send OTP email.'
+                  value:
+                    success: false
+                    message: User registered successfully. failure in OTP sent to email.
+                GenericServerError:
+                  summary: Unexpected server error
+                  description: Generic internal server error during registration.
+                  value:
+                    success: false
+                    message: Something went wrong. Please try again later.
+  /auth/verify-otp:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      description: User registration to the doctor appoinment app
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+            example: johndoe@gmail.com
+      requestBody:
+        description: Request body for Register API
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - otp
+              properties:
+                otp:
+                  type: string
+                  example: av5d39
+      responses:
+        '201':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - access_token
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: user registered succsessfully
+                  access_token:
+                    type: string
+                    example: eyjnkdjnsd****.eyjsnkdjskd***.eyj*****
+        '400':
+          description: 'Bad Request - Missing or invalid input (e.g., email or OTP is missing, invalid, or expired)'
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                missingEmail:
+                  summary: Missing email
+                  value:
+                    success: false
+                    message: Email is required
+                missingOtp:
+                  summary: Missing OTP
+                  value:
+                    success: false
+                    message: OTP is required
+                invalidOtp:
+                  summary: Invalid OTP
+                  value:
+                    success: false
+                    message: Invalid OTP
+                expiredOtp:
+                  summary: Expired OTP
+                  value:
+                    success: false
+                    message: OTP has expired
+        '404':
+          description: Not Found - The requested user does not exist
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: User not found
 components:
   securitySchemes:
     BearerAuth:

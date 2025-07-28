@@ -1,0 +1,121 @@
+schema:
+  post:
+    tags:
+      - Auth
+    summary: Register
+    description: User registration to the doctor appoinment app
+    requestBody:
+      description: 'Request body for Register API'
+      content:
+        application/json:
+          schema:
+            "$ref": "#/components/schemas/Register"
+    responses:
+      '201':
+        description: Success Response
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/successResponse"
+      '400':
+        description: Validation Error Response 
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ValidationErrorResponse"
+      '409':
+        description: Conflict - User already exists
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ConflictErrorResponse"     
+      '500':
+        description: Internal Server Error Response
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/InternalServerErrorResponse"
+            examples:
+              EmailSendFailure:
+                summary: OTP email failed
+                description: registration completed, but failed to send OTP email.
+                value:
+                  success: false
+                  message: User registered successfully. failure in OTP sent to email.
+              GenericServerError:
+                summary: Unexpected server error
+                description: Generic internal server error during registration.
+                value:
+                  success: false
+                  message: "Something went wrong. Please try again later."
+
+components:
+  schemas:
+    Register:
+      type: object
+      required:
+        - username
+        - email
+        - password
+        - role
+      properties:
+        username:
+          type: string
+          description: name of the user.
+          example: johndoe
+        role:
+          type: string
+          description: user role.
+          example: user
+        email:
+          type: string
+          description: Email address of the user.
+          example: johndoe@example.com
+        password:
+          type: string
+          description: Password of the user
+          example: "**************"
+          minLength: 6
+    successResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "User registered successfully. OTP sent to email."
+    InternalServerErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    ValidationErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: "correspond error message"
+    ConflictErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: User already exists with this email

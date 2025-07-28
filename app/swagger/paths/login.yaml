@@ -3,7 +3,7 @@ schema:
     tags:
       - Auth
     summary: Login
-    description: User login to the VS app
+    description: User login to the Doctor appoinment app
     requestBody:
       description: 'Request body for login API'
       content:
@@ -71,7 +71,7 @@ schema:
                description: Login verified, but failed to send OTP email.
                value:
                  success: false
-                 message: "Login verified, but failed to send OTP email. Try again or contact support."
+                 message: Login verified, but failed to send OTP email. Try again or contact support.
              GenericServerError:
                summary: Unexpected server error
                description: Generic internal server error during login.

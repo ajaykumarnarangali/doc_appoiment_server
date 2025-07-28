@@ -1,0 +1,108 @@
+schema:
+ post:
+   tags:
+     - Auth
+   summary: Register
+   description: User registration to the doctor appoinment app
+   parameters:
+     - name: email
+       in: query
+       required: true
+       schema:
+          type: string
+          example: "johndoe@gmail.com"
+   requestBody:
+     description: Request body for Register API
+     content:
+       application/json:
+         schema:
+           "$ref": "#/components/schemas/verifyOtp"
+   responses:
+     '201':
+        description: Success Response
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/successResponse"
+     '400':
+       description: Bad Request - Missing or invalid input (e.g., email or OTP is missing, invalid, or expired)
+       content:
+         application/json:
+           schema:
+             "$ref": "#/components/schemas/BadReqErrorResponse"
+           examples:
+             missingEmail:
+               summary: Missing email
+               value:
+                 success: false
+                 message: Email is required
+             missingOtp:
+               summary: Missing OTP
+               value:
+                 success: false
+                 message: OTP is required
+             invalidOtp:
+               summary: Invalid OTP
+               value:
+                 success: false
+                 message: Invalid OTP
+             expiredOtp:
+               summary: Expired OTP
+               value:
+                 success: false
+                 message: OTP has expired
+     '404':
+        description: Not Found - The requested user does not exist
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/NotFound"
+              
+components:
+  schemas:
+    verifyOtp:
+      type: object
+      required:
+        - otp
+      properties:
+        otp:
+          type: string
+          example: av5d39
+    successResponse:
+      type: object
+      required:
+        - success
+        - message
+        - access_token
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: user registered succsessfully
+        access_token:
+          type: string
+          example: "eyjnkdjnsd****.eyjsnkdjskd***.eyj*****"
+    BadReqErrorResponse:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+        message:
+          type: string
+    NotFound:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message:
+          type: string
+          example: User not found

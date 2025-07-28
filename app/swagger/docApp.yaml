@@ -8,9 +8,15 @@ servers:
 tags:
   - name: Auth
     description: Api related to authentication
+  - name: User
+    description: Api related to user operations
 paths:
   "/auth/login":
     $ref: './paths/login.yaml#/schema' 
+  "/auth/register":
+    $ref: './paths/register.yaml#/schema' 
+  "/auth/verify-otp":
+    $ref: './paths/verifyOtp.yaml#/schema' 
 
 components:
   securitySchemes:
