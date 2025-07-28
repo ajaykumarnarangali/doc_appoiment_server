@@ -10,6 +10,10 @@ exports.verifyOtp = async (req, res, next) => {
         return next(new APIError(403, 'Email is required'))
     }
 
+    if (!otp) {
+        return next(new APIError(403, 'otp is required'))
+    }
+
     try {
 
         const { access_token, refresh_token } = await authService.verifyOtp(email, otp);

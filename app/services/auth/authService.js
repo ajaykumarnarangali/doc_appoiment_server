@@ -11,7 +11,7 @@ const registerUser = async ({ username, email, password, role }) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-        throw new APIError(403, 'User already exists with this email');
+        throw new APIError(409, 'User already exists with this email');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -45,13 +45,13 @@ const verifyOtp = async (email, otp) => {
     }
 
     if (!userOtp || userOtp.expiresAt < new Date()) {
-        throw new APIError(400, 'Invalid or expired OTP');
+        throw new APIError(400, 'expired OTP');
     }
 
     const isOtpMatch = compareOtp(otp, userOtp);
 
     if (!isOtpMatch) {
-        throw new APIError(400, 'Invalid or expired OTP');
+        throw new APIError(400, 'Invalid OTP');
     }
 
     const access_token = generateToken(
