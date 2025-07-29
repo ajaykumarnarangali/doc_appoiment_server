@@ -1,7 +1,7 @@
 const APIError = require('../../shared/error/APIError');
 const { validateWithSchema } = require('../../utils/schemaValidation');
 const userSignupSchema = require('../../validators/signupSchema');
-const authService= require('../../services/auth/authService');
+const authService = require('../../services/auth/authService');
 
 exports.registerUser = async (req, res, next) => {
 

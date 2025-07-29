@@ -8,7 +8,7 @@ const otpTemplate = require('../../shared/mailTemplates/otpTemplate');
 const { OTP_VERIFICATION } = require('../../shared/constants/emailSubjects');
 
 const registerUser = async ({ username, email, password, role }) => {
-
+    
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         throw new APIError(409, 'User already exists with this email');
@@ -21,7 +21,11 @@ const registerUser = async ({ username, email, password, role }) => {
         username,
         email,
         password: hashedPassword,
-        role
+        role,
+        image: {
+            url: '',
+            public_id: ''
+        }
     });
 
     const newOtp = new Otp({
