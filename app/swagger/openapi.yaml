@@ -9,7 +9,7 @@ tags:
   - name: Auth
     description: Api related to authentication
   - name: User
-    description: Api related to user operations
+    description: Api related to user operations (authorization needed).
 paths:
   /auth/login:
     post:
@@ -363,9 +363,203 @@ paths:
                   message:
                     type: string
                     example: User not found
+  /user/get-user:
+    get:
+      tags:
+        - User
+      summary: get user
+      description: get user details by access_token
+      responses:
+        '200':
+          description: success responses
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - user
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User details fetched successfully
+                  user:
+                    type: object
+                    example:
+                      id: userId
+                      name: John Doe
+                      email: john@example.com
+                      role: user
+        '401':
+          description: Authentication required. Please provide a valid access token in the Authorization header
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Authentication required
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: user not found
+  /user/profile:
+    put:
+      tags:
+        - User
+      summary: update user
+      description: |
+        Allows  updates of user fields. Provide one or more fields (even full) to update.
+        Fields not included will remain unchanged.
+      requestBody:
+        description: Request body for update profile
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: johndoe@example.com
+                email:
+                  type: string
+                  example: johndoe@example.com
+                phone:
+                  type: string
+                  example: johndoe@example.com
+                address:
+                  type: string
+                  example: johndoe@example.com
+                gender:
+                  type: string
+                  example: johndoe@example.com
+                dob:
+                  type: string
+                  example: johndoe@example.com
+            examples:
+              emailOnly:
+                summary: email
+                description: update user email only
+                value:
+                  email: johndoe@test.com
+              emailandUsername:
+                summary: username & email
+                description: update user email and username
+                value:
+                  email: johndoe@test.com
+                  username: johndoe
+              allfield:
+                summary: allfield
+                description: update all fields of user
+                value:
+                  email: johndoe@test.com
+                  username: johndoe
+                  phone: '428394803804'
+                  address: 'new york, central area near la'
+                  gender: male
+                  dob: '2005-04-16'
+      responses:
+        '200':
+          description: success responses
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                  - user
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: User details fetched successfully
+                  user:
+                    type: object
+                    example:
+                      id: userId
+                      name: John Doe
+                      email: john@example.com
+                      role: user
+                      etc: more data about user
+        '400':
+          description: if we didn't pass payload
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Request body is missing or malformed
+        '401':
+          description: Authentication required. Please provide a valid access token in the Authorization header
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Authentication required
+        '404':
+          description: user not found
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - success
+                  - message
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: user not found
 components:
   securitySchemes:
-    BearerAuth:
-      type: apiKey
-      name: Authorization
-      in: header
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

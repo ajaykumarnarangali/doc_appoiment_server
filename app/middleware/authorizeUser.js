@@ -10,6 +10,7 @@ function authorizeUser(req, res, next) {
     }
 
     const token = authHeader.split(' ')[1];
+    console.log(token);
 
     jwt.verify(token, process.env.ACCESS_SECRET, (err, decoded) => {
         if (err) {

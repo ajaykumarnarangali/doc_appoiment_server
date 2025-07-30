@@ -1,0 +1,73 @@
+schema:
+  get:
+    tags:
+    - User
+    summary: get user
+    description: get user details by access_token
+    responses:
+      '200':
+         description: success responses
+         content:
+           application/json:
+             schema:
+               "$ref": "#/components/schemas/successResponse"
+      '401':
+         description:  Authentication required. Please provide a valid access token in the Authorization header
+         content:
+           application/json:
+             schema:
+               "$ref": "#/components/schemas/AuthorizationError"
+      '404':
+         description:  user not found 
+         content:
+           application/json:
+             schema:
+               "$ref": "#/components/schemas/notFound"
+
+components:
+  schemas:
+    successResponse:
+      type: object
+      required:
+        - success
+        - message
+        - user
+      properties:
+        success:
+          type: boolean
+          example: true
+        message: 
+          type: string
+          example: User details fetched successfully
+        user:
+          type: object
+          example:
+            id: "userId"
+            name: "John Doe"
+            email: "john@example.com"
+            role: "user"
+    AuthorizationError:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message: 
+          type: string
+          example: Authentication required
+    notFound:
+      type: object
+      required:
+        - success
+        - message
+      properties:
+        success:
+          type: boolean
+          example: false
+        message: 
+          type: string
+          example: user not found
+    

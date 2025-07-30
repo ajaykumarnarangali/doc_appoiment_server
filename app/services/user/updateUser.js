@@ -19,7 +19,7 @@ exports.updateUser = async (id, payLoad) => {
     );
 
     if (!user) {
-        throw new APIError(404, 'User does not exist');
+        throw new APIError(404, 'User not found or update failed');
     }
 
     const { password: pass, verified: veri, ...rest } = user._doc;

@@ -5,7 +5,7 @@ exports.getUser = async (id) => {
 
     const user = await User.findById(id);
     if (!user) {
-        throw new APIError(403, "failed to fetch user details")
+        return next(new APIError(404, "user not found"));
     }
     const { password: pass, _id: uid, ...rest } = user._doc;
     return rest;

@@ -9,7 +9,7 @@ tags:
   - name: Auth
     description: Api related to authentication
   - name: User
-    description: Api related to user operations
+    description: Api related to user operations (authorization needed).
 paths:
   "/auth/login":
     $ref: './paths/login.yaml#/schema' 
@@ -17,10 +17,17 @@ paths:
     $ref: './paths/register.yaml#/schema' 
   "/auth/verify-otp":
     $ref: './paths/verifyOtp.yaml#/schema' 
+  "/user/get-user":
+    $ref: './paths/getUser.yaml#/schema' 
+  "/user/profile":
+    $ref: './paths/updateUser.yaml#/schema' 
 
 components:
   securitySchemes:
-    BearerAuth:
-      type: apiKey
-      name: Authorization
-      in: header
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []

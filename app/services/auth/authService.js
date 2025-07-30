@@ -61,7 +61,7 @@ const verifyOtp = async (email, otp) => {
     const access_token = generateToken(
         { id: user._id, role: user.role },
         process.env.ACCESS_SECRET,
-        '15m'
+        '30m'
     );
 
     const refresh_token = generateToken(
@@ -109,7 +109,7 @@ const loginUser = async ({ email, password }) => {
     const access_token = generateToken(
         { id: user._id, role: user.role },
         process.env.ACCESS_SECRET,
-        '15m'
+        '30m'
     );
 
     const refresh_token = generateToken(
@@ -154,7 +154,7 @@ const refreshToken = async (incoming_token) => {
     const new_access_token = generateToken(
         { id: decoded.id, role: decoded.role },
         process.env.ACCESS_SECRET,
-        '15m'
+        '30m'
     );
 
     const new_refresh_token = generateToken(
