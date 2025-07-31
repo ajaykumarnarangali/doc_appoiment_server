@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "test": "mocha ./__tests__/userRegister/register.test.js"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +29,10 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "chai": "^4.3.7",
+    "chai-http": "^4.3.0",
+    "mocha": "^11.7.1",
+    "nodemon": "^3.1.10",
+    "sinon": "^21.0.0"
   }
 }

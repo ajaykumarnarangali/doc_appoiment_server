@@ -5,12 +5,12 @@ const authService = require('../../services/auth/authService');
 
 exports.registerUser = async (req, res, next) => {
 
+    console.log("came here");
     const { error } = validateWithSchema(userSignupSchema, req.body);
 
     if (error) {
         return next(new APIError(400, error.details[0].message));
     }
-
     try {
 
         const mailInfo = await authService.registerUser(req.body);
