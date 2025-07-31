@@ -2,42 +2,24 @@ schema:
   put:
     tags:
     - User
-    summary: update user 
+    summary: update user profile image
     description: | 
-      Allows  updates of user fields. Provide one or more fields (even full) to update.
-      Fields not included will remain unchanged.
+      Allows  updates of user profile image
     security:
       - bearerAuth: []
     requestBody:
-      description: 'Request body for update profile'
+      required: true
+      description: Request body for updating profile image
       content:
-        application/json:
+        multipart/form-data:
           schema:
-            "$ref": "#/components/schemas/updateUser"
-          examples:
-            emailOnly:
-              summary: email
-              description: update user email only
-              value:
-                email: "johndoe@test.com"
-            emailandUsername:
-              summary: username & email
-              description: update user email and username
-              value:
-                email: "johndoe@test.com"
-                username: "johndoe"
-            allfield:
-              summary: allfield
-              description: update all fields of user
-              value:
-                email: "johndoe@test.com"
-                username: "johndoe"
-                phone: "428394803804"
-                address: "new york, central area near la"
-                gender: "male"
-                dob: "2005-04-16"
+            type: object
+            properties:
+              image:
+                type: string
+                format: binary
     responses:
-      '200':
+      '201':
          description: success responses
          content:
            application/json:
@@ -76,7 +58,7 @@ components:
           example: true
         message: 
           type: string
-          example: User details updated successfully
+          example: profile updated success fully
         user:
           type: object
           example:
@@ -108,7 +90,7 @@ components:
           example: false
         message: 
           type: string
-          example: No image uploaded
+          example: User not found or update failed
     malformedPayload:
       type: object
       required:
@@ -121,26 +103,5 @@ components:
         message: 
           type: string
           example: Request body is missing or malformed
-    updateUser:
-      type: object
-      properties:
-        username:
-          type: string
-          example: johndoe@example.com
-        email:
-          type: string
-          example: johndoe@example.com
-        phone:
-          type: string
-          example: johndoe@example.com
-        address:
-          type: string
-          example: johndoe@example.com
-        gender:
-          type: string
-          example: johndoe@example.com
-        dob:
-          type: string
-          example: johndoe@example.com
     
     

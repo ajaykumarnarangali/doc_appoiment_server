@@ -4,6 +4,8 @@ schema:
     - User
     summary: get user
     description: get user details by access_token
+    security:
+      - bearerAuth: []
     responses:
       '200':
          description: success responses

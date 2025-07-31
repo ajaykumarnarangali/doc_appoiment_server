@@ -21,6 +21,8 @@ paths:
     $ref: './paths/getUser.yaml#/schema' 
   "/user/profile":
     $ref: './paths/updateUser.yaml#/schema' 
+  "/user/profile-image":
+    $ref: './paths/profileImage.yaml#/schema' 
 
 components:
   securitySchemes:
@@ -29,5 +31,3 @@ components:
       scheme: bearer
       bearerFormat: JWT
 
-security:
-  - bearerAuth: []
