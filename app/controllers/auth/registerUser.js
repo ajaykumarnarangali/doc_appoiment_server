@@ -5,7 +5,6 @@ const authService = require('../../services/auth/authService');
 
 exports.registerUser = async (req, res, next) => {
 
-    console.log("came here");
     const { error } = validateWithSchema(userSignupSchema, req.body);
 
     if (error) {
@@ -23,7 +22,7 @@ exports.registerUser = async (req, res, next) => {
         } else {
             return res.status(500).json({
                 success: false,
-                message: 'User registered successfully. failure in OTP sent to email.',
+                message: 'User registration successful. OTP dispatch to email failed.',
             })
         }
 
