@@ -40,7 +40,8 @@ exports.Login = async (req, res, next) => {
         }).status(201).json({
             message: "user logged in succsessfully",
             success: true,
-            access_token: result?.access_token
+            access_token: result?.access_token,
+            role: result.userRole
         });
 
     } catch (error) {

@@ -8,7 +8,7 @@ const imageSchema = new mongoose.Schema({
     },
     public_id: {
         type: String,
-        default:''
+        default: ''
     }
 });
 const userSchema = new mongoose.Schema({
@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: 'user',
+        enum: ['user', 'doctor', 'admin'],
         required: true
     },
     verified: {
@@ -51,6 +52,21 @@ const userSchema = new mongoose.Schema({
     },
     image: {
         type: imageSchema
+    },
+    experience: {
+        type: Number
+    },
+    fees: {
+        type: Number
+    },
+    about: {
+        type: String
+    },
+    speciality: {
+        type: String
+    },
+    degree: {
+        type: String
     }
 }, { timestamps: true })
 
