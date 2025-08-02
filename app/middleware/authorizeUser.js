@@ -16,6 +16,7 @@ function authorizeUser(req, res, next) {
             return next(new APIError(401, 'Token is invalid'));
         }
         req.user = decoded;
+        console.log(req.user);
         next()
     })
 

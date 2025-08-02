@@ -65,7 +65,7 @@ const verifyOtp = async (email, otp) => {
     );
 
     const refresh_token = generateToken(
-        { id: user._id },
+        { id: user._id, role: user.role },
         process.env.REFRESH_SECRET,
         '7d'
     );
@@ -113,7 +113,7 @@ const loginUser = async ({ email, password }) => {
     );
 
     const refresh_token = generateToken(
-        { id: user._id },
+        { id: user._id, role: user.role },
         process.env.REFRESH_SECRET,
         '7d'
     );
@@ -158,7 +158,7 @@ const refreshToken = async (incoming_token) => {
     );
 
     const new_refresh_token = generateToken(
-        { id: decoded.id },
+        { id: decoded.id, role: decoded.role },
         process.env.REFRESH_SECRET,
         '7d'
     );
