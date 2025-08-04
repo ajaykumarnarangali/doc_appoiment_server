@@ -1,5 +1,7 @@
-const { addDoctor } = require('./addDoctor')
+const { addDoctor } = require('./addDoctor');
+const { getDoctors } = require('./getDoctors');
 
 module.exports = {
-    addDoctor
+    addDoctor,
+    getDoctors
 }

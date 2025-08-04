@@ -11,4 +11,9 @@ router
     .post(upload.single('image'), authorizeUser, authorizeRole('admin'), adminController.addDoctor)
     .all(fourOhFiveHandler);
 
+router
+    .route('/all-doctors')
+    .get(upload.single('image'), authorizeUser, authorizeRole('admin'), adminController.getDoctors)
+    .all(fourOhFiveHandler);
+
 module.exports = router;
