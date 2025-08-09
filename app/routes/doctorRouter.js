@@ -15,5 +15,14 @@ router
     .put(authorizeUser, authorizeRole('doctor'), upload.single('image'), doctorController.profileImage)
     .all(fourOhFiveHandler);
 
+router
+    .route('/add-leave')
+    .put(authorizeUser, authorizeRole('doctor'), doctorController.addLeave)
+    .all(fourOhFiveHandler);
+
+router
+    .route('/remove-leave')
+    .put(authorizeUser, authorizeRole('doctor'), doctorController.removeLeave)
+    .all(fourOhFiveHandler);
 
 module.exports = router;

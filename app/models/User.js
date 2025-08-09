@@ -67,6 +67,12 @@ const userSchema = new mongoose.Schema({
     },
     degree: {
         type: String
+    },
+    availableDays: {
+        type: [Number]
+    },
+    notAvailableDays: {
+        type: [String]
     }
 }, { timestamps: true })
 

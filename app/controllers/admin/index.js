@@ -3,5 +3,5 @@ const { getDoctors } = require('./getDoctors');
 
 module.exports = {
     addDoctor,
-    getDoctors
+    getDoctors,
 }

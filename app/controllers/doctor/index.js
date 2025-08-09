@@ -1,7 +1,11 @@
-const {updateProfile} =require('./updateProfile');
-const {profileImage} =require('./profileImage');
+const { updateProfile } = require('./updateProfile');
+const { profileImage } = require('./profileImage');
+const { addLeave } = require('./addLeave');
+const { removeLeave } = require('./removeLeave');
 
-module.exports={
+module.exports = {
     updateProfile,
-    profileImage
+    profileImage,
+    addLeave,
+    removeLeave
 }

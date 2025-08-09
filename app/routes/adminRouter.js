@@ -13,7 +13,8 @@ router
 
 router
     .route('/all-doctors')
-    .get(upload.single('image'), authorizeUser, authorizeRole('admin'), adminController.getDoctors)
+    .get(authorizeUser, authorizeRole('admin','user'), adminController.getDoctors)
     .all(fourOhFiveHandler);
+
 
 module.exports = router;
