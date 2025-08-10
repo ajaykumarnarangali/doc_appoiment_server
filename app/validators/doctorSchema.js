@@ -9,7 +9,17 @@ const doctorRegSchema = Joi.object({
     about: Joi.required(),
     speciality: Joi.required(),
     degree: Joi.required(),
-    address: Joi.required()
+    address: Joi.required(),
+    working: Joi.object({
+        from: Joi.string()
+            .valid('0', '1', '2', '3', '4', '5', '6')
+            .required(),
+        to: Joi.string()
+            .valid('0', '1', '2', '3', '4', '5', '6')
+            .required(),
+        time: Joi.string()
+            .required()
+    }).required()
 });
 
 module.exports = doctorRegSchema;

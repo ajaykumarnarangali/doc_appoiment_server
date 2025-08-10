@@ -68,8 +68,10 @@ const userSchema = new mongoose.Schema({
     degree: {
         type: String
     },
-    availableDays: {
-        type: [Number]
+    working: {
+        from: String,
+        to: String,
+        time:String
     },
     notAvailableDays: {
         type: [String]

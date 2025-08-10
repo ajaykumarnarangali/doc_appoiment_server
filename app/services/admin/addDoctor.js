@@ -37,6 +37,11 @@ exports.addDoctor = async (payLoad, imageFile) => {
         image: {
             url: imageData?.url,
             public_id: imageData?.public_id
+        },
+        working:{
+            from:payLoad?.working?.from || '1',
+            to:payLoad?.working?.to || '5',
+            time:payLoad?.working?.time || '5',
         }
     })
 

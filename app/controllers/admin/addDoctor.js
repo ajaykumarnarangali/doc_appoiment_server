@@ -4,6 +4,7 @@ const { validateWithSchema } = require('../../utils/schemaValidation');
 const adminService = require('../../services/admin/index');
 
 exports.addDoctor = async (req, res, next) => {
+    req.body.working = JSON.parse(req.body.working);
     const { error } = validateWithSchema(doctorRegSchema, req.body);
     if (error) {
         return next(new APIError(400, error.details[0].message));
@@ -24,6 +25,7 @@ exports.addDoctor = async (req, res, next) => {
         })
 
     } catch (error) {
+        console.log(error);
         next(error)
     }
 }
