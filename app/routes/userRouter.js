@@ -20,5 +20,9 @@ router
     .put(authorizeUser, multer.single('image'), userController.profileImage)
     .all(fourOhFiveHandler);
 
+router.
+    route('/get-doctor/:id')
+    .get(authorizeUser,userController.getDoctor)
+    .all(fourOhFiveHandler);
 
 module.exports = router;
