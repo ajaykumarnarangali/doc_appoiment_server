@@ -25,4 +25,9 @@ router
     .put(authorizeUser, authorizeRole('doctor'), doctorController.removeLeave)
     .all(fourOhFiveHandler);
 
+router
+    .route('/search')
+    .get(authorizeUser, authorizeRole('user'), doctorController.searchDoctors)
+    .all(fourOhFiveHandler);
+
 module.exports = router;

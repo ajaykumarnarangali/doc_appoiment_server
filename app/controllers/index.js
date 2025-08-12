@@ -2,11 +2,13 @@ const authController = require('./auth/index');
 const userController = require('./user/index');
 const adminController = require('./admin/index');
 const doctorController = require('./doctor/index');
+const appointmentController = require('./appointments/index');
 
 
 module.exports = {
     authController,
     userController,
     adminController,
-    doctorController
+    doctorController,
+    appointmentController
 };

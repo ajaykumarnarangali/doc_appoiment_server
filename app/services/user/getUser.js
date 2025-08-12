@@ -6,6 +6,6 @@ exports.getUser = async (id) => {
     if (!user) {
         return next(new APIError(404, "user not found"));
     }
-    const { password: pass, _id: uid, ...rest } = user._doc;
+    const { password: pass, ...rest } = user._doc;
     return rest;
 }
