@@ -1,5 +1,7 @@
-const {newAppointment}=require('./addNew');
+const { newAppointment } = require('./addNew');
+const { doctorAppointments } = require('./doctorAppointments');
 
-module.exports={
-    newAppointment
+module.exports = {
+    newAppointment,
+    doctorAppointments
 }

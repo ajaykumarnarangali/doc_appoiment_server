@@ -6,9 +6,12 @@ const { appointmentController } = require('../controllers/index');
 
 router
     .route('/new')
-    .post(authorizeUser, authorizeRole('user,admin'), appointmentController.newAppointment)
+    .post(authorizeUser, authorizeRole('user', 'admin'), appointmentController.newAppointment)
     .all(fourOhFiveHandler);
 
-
+router
+    .route('/doctor')
+    .get(authorizeUser, authorizeRole('user', 'admin'), appointmentController.doctorAppointments)
+    .all(fourOhFiveHandler);
 
 module.exports = router;

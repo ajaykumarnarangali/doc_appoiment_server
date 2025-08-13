@@ -1,9 +1,8 @@
 const User = require('../../models/User');
-const mongoose = require('mongoose');
 
 exports.searchDoctors = (params) => {
     const filterMap = {
-        notIncludeId: val => ({ _id: { $ne: val } }),
+        _id: val => ({ $ne: val }),
         speciality: val => val,
         // experience_gte: val => ({ $gte: Number(val) }),
         // name: val => new RegExp(val, 'i') // case-insensitive
