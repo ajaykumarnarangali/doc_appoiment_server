@@ -13,7 +13,7 @@ router
 
 router
     .route('/all-doctors')
-    .get(authorizeUser, authorizeRole('admin','user'), adminController.getDoctors)
+    .get(adminController.getDoctors)
     .all(fourOhFiveHandler);
 
 
