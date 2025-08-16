@@ -4,11 +4,11 @@ exports.searchDoctors = (params) => {
     const filterMap = {
         _id: val => ({ $ne: val }),
         speciality: val => val,
+        username: val => new RegExp(val, 'i')
         // experience_gte: val => ({ $gte: Number(val) }),
-        // name: val => new RegExp(val, 'i') // case-insensitive
     };
 
-    const query = {};
+    const query = { role: 'doctor' };
     Object.keys(filterMap).forEach((key) => {
         if (params[key]) {
             query[key] = filterMap[key](params[key]);

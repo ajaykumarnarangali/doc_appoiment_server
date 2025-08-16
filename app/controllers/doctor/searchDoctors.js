@@ -2,9 +2,6 @@ const APIError = require('../../shared/error/APIError');
 const doctorService = require('../../services/doctor/index');
 
 exports.searchDoctors = async (req, res, next) => {
-    if (!req.user) {
-        return next(new APIError(401, "Authentication required"));
-    }
     try {
         const doctors = await doctorService.searchDoctors(req.query);
         res.status(200).json({
