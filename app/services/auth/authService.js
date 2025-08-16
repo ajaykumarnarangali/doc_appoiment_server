@@ -157,16 +157,7 @@ const refreshToken = async (incoming_token) => {
         '30m'
     );
 
-    const new_refresh_token = generateToken(
-        { id: decoded.id, role: decoded.role },
-        process.env.REFRESH_SECRET,
-        '7d'
-    );
-
-    old_refresh_token.token = new_refresh_token;
-    await old_refresh_token.save();
-
-    return { new_access_token, new_refresh_token }
+    return { new_access_token }
 }
 
 module.exports = {

@@ -14,4 +14,9 @@ router
     .get(authorizeUser, authorizeRole('user', 'admin'), appointmentController.doctorAppointments)
     .all(fourOhFiveHandler);
 
+router
+    .route('/user')
+    .get(authorizeUser, authorizeRole('doctor'), appointmentController.doctorUsers)
+    .all(fourOhFiveHandler);
+
 module.exports = router;
