@@ -19,4 +19,14 @@ router
     .get(authorizeUser, authorizeRole('doctor'), appointmentController.doctorUsers)
     .all(fourOhFiveHandler);
 
+router
+    .route('/:id/status')
+    .put(authorizeUser, authorizeRole('doctor', 'user'), appointmentController.updateStatus)
+    .all(fourOhFiveHandler);
+
+router
+    .route('/payable')
+    .get(authorizeUser, authorizeRole('user'), appointmentController.userPayable)
+    .all(fourOhFiveHandler);
+
 module.exports = router;
